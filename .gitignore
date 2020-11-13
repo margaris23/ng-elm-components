@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Elm
+/elm-stuff
+/src/elm-components/*.js
