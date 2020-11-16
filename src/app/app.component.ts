@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+// src/app.component.ts
+import { Component, OnInit } from '@angular/core';
 
-declare const Elm;
+declare var Elm;
 
 @Component({
   selector: 'app-root',
@@ -9,21 +10,29 @@ declare const Elm;
 })
 export class AppComponent implements OnInit {
   title = 'ng-elm-custom-element';
-  message: string;
+  messages: string[] = [];
 
   private elmComponent: any;
 
   ngOnInit() {
+    this.initElm();
+    this.listenForEvents();
+  }
+
+  send(inputElem: HTMLInputElement) {
+    this.elmComponent.ports.messageReceiver.send(inputElem.value);
+    inputElem.value = '';
+  }
+
+  private initElm() {
     this.elmComponent = Elm.Main.init({
       node: document.getElementById('elm-component')
     });
-
-    this.elmComponent.ports.sendMessage.subscribe(message => {
-      this.message = message;
-    });
   }
 
-  send(message: string) {
-    this.elmComponent.ports.messageReceiver.send(message);
+  private listenForEvents() {
+    this.elmComponent.ports.sendMessage.subscribe(message => {
+      this.messages.push(message);
+    });
   }
 }

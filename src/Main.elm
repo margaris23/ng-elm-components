@@ -104,19 +104,30 @@ subscriptions _ =
 view : Model -> Html Msg
 view model =
     div []
-        [ input
-            [ type_ "text"
-            , placeholder "Draft"
-            , onInput DraftChanged
-            , on "keydown" (ifIsEnter Send)
-            , value model.draft
-            ]
-            []
-        , button [ onClick Send ] [ text "Send" ]
-        , h3 [] [text "Chat List:"]
-        , ul []
+        [ h3 [ class "is-size-5"] [text "Messages from Angular:"]
+          , ul []
             (List.map (\msg -> li [] [ text msg ]) model.messages)
+          , div [ class "field has-addons" ]
+          [ div [ class "control"]
+            [ input
+              [ type_ "text"
+              , placeholder "Type text"
+              , onInput DraftChanged
+              , on "keydown" (ifIsEnter Send)
+              , value model.draft
+              , class "input is-small"
+              ]
+              []
+            ]
+          , div [ class "control" ]
+            [ button [
+              onClick Send
+            , class "input is-small"
+            ]
+            [ text "Send to Angular" ]
+          ]
         ]
+      ]
 
 
 

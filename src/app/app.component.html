@@ -1,15 +1,30 @@
-<h1>Angular + ELM</h1>
+<h1 class="title ml-2">Angular Meets ELM</h1>
 
-<p>Elm component:
-  <span id="elm-component"></span>
-  <br>
-  <span>Message received by Angular: {{message}}</span>
-</p>
+<article class="subtitle ml-2">Prototype showing interoperability between Elm & Angular</article>
 
-<p>Angular component:
-  <br>
-  <input #msg>
-  <button (click)="send(msg.value)">Send Message to Elm</button>
-</p>
+<div class="content ml-2">
+  <section>
+    <h2>Elm component</h2>
+    <div id="elm-component"></div>
+  </section>
+
+  <section>
+    <h2>Angular component</h2>
+    <div>
+      <h3 class="is-size-5">Messages from Elm:</h3>
+      <ul>
+        <li *ngFor="let message of messages">{{message}}</li>
+      </ul>
+      <div class="field has-addons">
+        <div class="control">
+          <input #msg class="input is-small" placeholder="Type text">
+        </div>
+        <div class="control">
+          <button class="button is-small" (click)="send(msg)">Send to Elm</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
 <router-outlet></router-outlet>
